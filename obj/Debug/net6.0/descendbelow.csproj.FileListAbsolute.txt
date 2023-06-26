@@ -1,0 +1,15 @@
+C:\msys64\home\Admin\descendbelow\bin\Debug\net6.0\descendbelow.exe
+C:\msys64\home\Admin\descendbelow\bin\Debug\net6.0\descendbelow.deps.json
+C:\msys64\home\Admin\descendbelow\bin\Debug\net6.0\descendbelow.runtimeconfig.json
+C:\msys64\home\Admin\descendbelow\bin\Debug\net6.0\descendbelow.dll
+C:\msys64\home\Admin\descendbelow\bin\Debug\net6.0\descendbelow.pdb
+C:\msys64\home\Admin\descendbelow\obj\Debug\net6.0\descendbelow.csproj.AssemblyReference.cache
+C:\msys64\home\Admin\descendbelow\obj\Debug\net6.0\descendbelow.GeneratedMSBuildEditorConfig.editorconfig
+C:\msys64\home\Admin\descendbelow\obj\Debug\net6.0\descendbelow.AssemblyInfoInputs.cache
+C:\msys64\home\Admin\descendbelow\obj\Debug\net6.0\descendbelow.AssemblyInfo.cs
+C:\msys64\home\Admin\descendbelow\obj\Debug\net6.0\descendbelow.csproj.CoreCompileInputs.cache
+C:\msys64\home\Admin\descendbelow\obj\Debug\net6.0\descendbelow.dll
+C:\msys64\home\Admin\descendbelow\obj\Debug\net6.0\refint\descendbelow.dll
+C:\msys64\home\Admin\descendbelow\obj\Debug\net6.0\descendbelow.pdb
+C:\msys64\home\Admin\descendbelow\obj\Debug\net6.0\descendbelow.genruntimeconfig.cache
+C:\msys64\home\Admin\descendbelow\obj\Debug\net6.0\ref\descendbelow.dll
