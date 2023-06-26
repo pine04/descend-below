@@ -1,4 +1,4 @@
-using SplashKitSDK;
+/* using SplashKitSDK;
 
 namespace DescendBelow {
     public class Projectile : DynamicObject {
@@ -23,4 +23,4 @@ namespace DescendBelow {
             _sprite.Draw(_position.X, _position.Y, SplashKit.OptionRotateBmp(angle, options));
         }
     }
-}
+} */

@@ -18,5 +18,17 @@ namespace DescendBelow {
         }
 
         public abstract void Update(uint fps);
+
+        public Point2D Position {
+            get { return _position; }
+        }
+
+        public double Width {
+            get { return _width; }
+        }
+
+        public double Height {
+            get { return _height; }
+        }
     }
 }

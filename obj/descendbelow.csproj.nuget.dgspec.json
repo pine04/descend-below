@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\msys64\\home\\Admin\\descendbelow\\descendbelow.csproj": {}
+    "C:\\msys64\\home\\gnut\\descend-below\\descendbelow.csproj": {}
   },
   "projects": {
-    "C:\\msys64\\home\\Admin\\descendbelow\\descendbelow.csproj": {
+    "C:\\msys64\\home\\gnut\\descend-below\\descendbelow.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\msys64\\home\\Admin\\descendbelow\\descendbelow.csproj",
+        "projectUniqueName": "C:\\msys64\\home\\gnut\\descend-below\\descendbelow.csproj",
         "projectName": "descendbelow",
-        "projectPath": "C:\\msys64\\home\\Admin\\descendbelow\\descendbelow.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\msys64\\home\\Admin\\descendbelow\\obj\\",
+        "projectPath": "C:\\msys64\\home\\gnut\\descend-below\\descendbelow.csproj",
+        "packagesPath": "C:\\Users\\gnut\\.nuget\\packages\\",
+        "outputPath": "C:\\msys64\\home\\gnut\\descend-below\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\gnut\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -58,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.410\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }
