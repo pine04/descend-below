@@ -13,13 +13,13 @@ namespace DescendBelow {
             Console.WriteLine("Height: {0}", gameObject.Height);
 
             _baseColliderBox = SplashKit.QuadFrom(
-                SplashKit.PointAt(gameObject.Position.X - gameObject.Width / 2, gameObject.Position.Y - gameObject.Height / 2),
-                SplashKit.PointAt(gameObject.Position.X + gameObject.Width / 2, gameObject.Position.Y - gameObject.Height / 2),
-                SplashKit.PointAt(gameObject.Position.X - gameObject.Width / 2, gameObject.Position.Y + gameObject.Height / 2),
-                SplashKit.PointAt(gameObject.Position.X + gameObject.Width / 2, gameObject.Position.Y + gameObject.Height / 2)
+                SplashKit.PointAt(-gameObject.Width / 2, -gameObject.Height / 2),
+                SplashKit.PointAt(gameObject.Width / 2, -gameObject.Height / 2),
+                SplashKit.PointAt(-gameObject.Width / 2, gameObject.Height / 2),
+                SplashKit.PointAt(gameObject.Width / 2, gameObject.Height / 2)
             );
-            // Matrix2D rotationMatrix = SplashKit.RotationMatrix(rotation);
-            // SplashKit.ApplyMatrix(rotationMatrix, ref _baseColliderBox);
+            Matrix2D rotationMatrix = SplashKit.RotationMatrix(rotation);
+            SplashKit.ApplyMatrix(rotationMatrix, ref _baseColliderBox);
         }
 
         public bool IsCollidingWith(Collider c) {
@@ -28,8 +28,8 @@ namespace DescendBelow {
 
         public Quad GetColliderBox() {
             Quad colliderBox = _baseColliderBox;
-            // Matrix2D translationMatrix = SplashKit.TranslationMatrix(_gameObject.Position.X, _gameObject.Position.Y);
-            // SplashKit.ApplyMatrix(translationMatrix, ref colliderBox);
+            Matrix2D translationMatrix = SplashKit.TranslationMatrix(_gameObject.Position.X, _gameObject.Position.Y);
+            SplashKit.ApplyMatrix(translationMatrix, ref colliderBox);
 
             return colliderBox;
         }
