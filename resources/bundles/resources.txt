@@ -1,0 +1,8 @@
+BITMAP,arrow,arrow3.png
+BITMAP,shortHorizontalGrassWall,short_horizontal_grass_wall.png
+BITMAP,longHorizontalGrassWall,long_horizontal_grass_wall.png
+BITMAP,shortVerticalGrassWall,short_vertical_grass_wall.png
+BITMAP,longVerticalGrassWall,long_vertical_grass_wall.png
+BITMAP,blockedExitHorizontal,blocked_exit_horizontal.png
+BITMAP,blockedExitVertical,blocked_exit_vertical.png
+BITMAP,floorShapes,floor-shapes.png

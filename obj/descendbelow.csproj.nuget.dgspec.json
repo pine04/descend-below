@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\msys64\\home\\gnut\\descend-below\\descendbelow.csproj": {}
+    "C:\\msys64\\home\\Admin\\descendbelow\\descendbelow.csproj": {}
   },
   "projects": {
-    "C:\\msys64\\home\\gnut\\descend-below\\descendbelow.csproj": {
+    "C:\\msys64\\home\\Admin\\descendbelow\\descendbelow.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\msys64\\home\\gnut\\descend-below\\descendbelow.csproj",
+        "projectUniqueName": "C:\\msys64\\home\\Admin\\descendbelow\\descendbelow.csproj",
         "projectName": "descendbelow",
-        "projectPath": "C:\\msys64\\home\\gnut\\descend-below\\descendbelow.csproj",
-        "packagesPath": "C:\\Users\\gnut\\.nuget\\packages\\",
-        "outputPath": "C:\\msys64\\home\\gnut\\descend-below\\obj\\",
+        "projectPath": "C:\\msys64\\home\\Admin\\descendbelow\\descendbelow.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\msys64\\home\\Admin\\descendbelow\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\gnut\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -45,11 +48,17 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.410\\RuntimeIdentifierGraph.json"
         }
       }
     }
