@@ -8,7 +8,7 @@ namespace DescendBelow {
         {
             if (ReadyForAttack()) {
                 Vector2D direction = SplashKit.VectorPointToPoint(startPosition, target);
-                Game.CurrentGame?.AddGameObjectOnScreen(new Projectile(startPosition, 15, 39, SplashKit.BitmapNamed("arrow"), direction, 300));
+                Game.CurrentGame?.AddGameObjectOnScreen(new Projectile(startPosition, 15, 39, SplashKit.BitmapNamed("arrow"), direction, 300, ProjectileType.Friendly, 10));
                 IncurCooldown();
             }
         }

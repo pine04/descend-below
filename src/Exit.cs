@@ -18,33 +18,18 @@ namespace DescendBelow {
         }
 
         public void Collide(Collider c) {
-            if (c.GameObject is Player && _sourceRoom.Cleared) {
-                Game.CurrentGame?.EnterRoom(_destinationRoom, GetOppositeDirection(_direction));
+            if (c.GameObject is Player && _sourceRoom.IsClear()) {
+                Game.CurrentGame?.EnterRoom(_destinationRoom, _direction.GetOpposite());
             }
 
-            if (c.GameObject is Player && !_sourceRoom.Cleared) {
+            if (c.GameObject is Player && !_sourceRoom.IsClear()) {
                 Collider.ResolveDynamicStatic(c, _collider);
-            }
-        }
-
-        private Direction GetOppositeDirection(Direction direction) {
-            switch (direction) {
-                case Direction.North:
-                    return Direction.South;
-                case Direction.East:
-                    return Direction.West;
-                case Direction.South:
-                    return Direction.South;
-                case Direction.West:
-                    return Direction.East;
-                default:
-                    return Direction.North;
             }
         }
 
         public override void Draw(DrawingOptions options)
         {
-            if (!_sourceRoom.Cleared) {
+            if (!_sourceRoom.IsClear()) {
                 base.Draw(options);
             }
         }

@@ -6,3 +6,11 @@ BITMAP,longVerticalGrassWall,long_vertical_grass_wall.png
 BITMAP,blockedExitHorizontal,blocked_exit_horizontal.png
 BITMAP,blockedExitVertical,blocked_exit_vertical.png
 BITMAP,floorShapes,floor-shapes.png
+BITMAP,heart,heart.png
+BITMAP,shrub,shrub.png
+BITMAP,leaf,leaf.png
+BITMAP,interactionArrow,interactionArrow.png
+BITMAP,staircase,staircase.png
+FONT,pixel,pixelated_font.ttf,14
+MUSIC,circumambient,circumambient.mp3
+TIMER,gameTimer

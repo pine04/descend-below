@@ -5,12 +5,14 @@ namespace DescendBelow {
         protected Point2D _position;
         protected double _width, _height;
         protected Bitmap _sprite;
+        protected int _zIndex;
 
-        public GameObject(Point2D position, double width, double height, Bitmap sprite) {
+        public GameObject(Point2D position, double width, double height, Bitmap sprite, int zIndex = 1) {
             _position = position;
             _width = width;
             _height = height;
             _sprite = sprite;
+            _zIndex = zIndex;
         }
 
         public virtual void Draw(DrawingOptions options) {
@@ -29,6 +31,10 @@ namespace DescendBelow {
 
         public double Height {
             get { return _height; }
+        }
+
+        public int ZIndex {
+            get { return _zIndex; }
         }
     }
 }

@@ -6,10 +6,16 @@ namespace DescendBelow {
         private Room[,] _rooms;
         private Room _startRoom;
 
-        public Floor() {
-            string[,] layout = GetFloorLayout();
-            _rooms = CreateRooms(layout);
-            ConnectRooms();
+        public Floor(bool isStarterFloor) {
+            if (!isStarterFloor) {
+                string[,] layout = GetFloorLayout();
+                _rooms = CreateRooms(layout);
+                ConnectRooms();
+            } else {
+                _rooms = new Room[5,5];
+                _startRoom = new Room(true, false, false, false, false);
+                _rooms[2, 2] = _startRoom;
+            }
         }
 
         private Room[,] CreateRooms(string[,] layout) {
@@ -46,7 +52,7 @@ namespace DescendBelow {
                         hasEastExit = false;
                     }
 
-                    rooms[i, j] = new Room(hasNorthExit, hasEastExit, hasSouthExit, hasWestExit);
+                    rooms[i, j] = new Room(false, hasNorthExit, hasEastExit, hasSouthExit, hasWestExit);
 
                     // Consider removign dis.
                     if (layout[i, j] == "S") {
@@ -100,7 +106,7 @@ namespace DescendBelow {
         }
 
         public void DrawMap(Room currentRoom) {
-            SplashKit.FillRectangle(Color.RGBColor(69, 68, 79), 800, 100, 96, 96);
+            SplashKit.FillRectangle(Color.RGBColor(155, 173, 183), 656, 96, 96, 96);
             Color tileColor;
 
             for (int i = 0; i < _rooms.GetLength(0); i++) {
@@ -110,12 +116,12 @@ namespace DescendBelow {
                     }
                     
                     if (_rooms[i, j] == currentRoom) {
-                        tileColor = Color.RGBColor(180, 82, 82);
+                        tileColor = Color.RGBColor(217, 87, 99);
                     } else {
-                        tileColor = Color.RGBColor(184, 181, 185);
+                        tileColor = Color.White;
                     }
                         
-                    SplashKit.FillRectangle(tileColor, 800 + 20 * j, 100 + 20 * i, 16, 16);
+                    SplashKit.FillRectangle(tileColor, 656 + 20 * j, 96 + 20 * i, 16, 16);
                 }
             }
         }

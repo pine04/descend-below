@@ -9,15 +9,15 @@ namespace DescendBelow {
         public Weapon(double damage, double attackCooldown) {
             _damage = damage;
             _attackCooldown = attackCooldown;
-            _timeSinceLastAtk = SplashKit.CurrentTicks();
+            _timeSinceLastAtk = SplashKit.TimerTicks("gameTimer");
         }
 
         protected bool ReadyForAttack() {
-            return SplashKit.CurrentTicks() - _timeSinceLastAtk >= _attackCooldown * 1000;
+            return SplashKit.TimerTicks("gameTimer") - _timeSinceLastAtk >= _attackCooldown * 1000;
         }
 
         protected void IncurCooldown() {
-            _timeSinceLastAtk = SplashKit.CurrentTicks();
+            _timeSinceLastAtk = SplashKit.TimerTicks("gameTimer");
         }
 
         public abstract void Attack(Point2D startPosition, Point2D target);

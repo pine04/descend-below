@@ -1,14 +1,14 @@
-using System;
 using SplashKitSDK;
 
 namespace DescendBelow {
-    public class Player : DynamicObject, ICollidable {
-        private Collider _collider;
+    public class Player : Character {
         private Weapon _weapon;
+        private uint _timeSinceLastHit, _timeSinceLastRegen;
 
-        public Player(Point2D position, double width, double height, Bitmap sprite, Vector2D initialVelocity) : base(position, width, height, sprite, initialVelocity) {
-            _collider = new Collider(this, 0);
+        public Player(Point2D position, double width, double height, Bitmap sprite, Vector2D initialVelocity, int maxHealth) : base(position, width, height, sprite, initialVelocity, maxHealth, 20) {
             _weapon = new Bow(10, .5);
+            _timeSinceLastHit = 0;
+            _timeSinceLastRegen = 0;
         }
 
         public void Halt() {
@@ -31,18 +31,27 @@ namespace DescendBelow {
             _velocity = SplashKit.VectorAdd(_velocity, SplashKit.VectorMultiply(new Vector2D() { X = 0, Y = 1 }, 100));
         }
 
-        public Collider Collider {
-            get { return _collider; }
-        }
-
-        public void Collide(Collider c) {
-            if (c.GameObject is StaticObject) {
-                Collider.ResolveDynamicStatic(_collider, c);              
-            }
-        }
-
         public void Attack(Point2D target) {
             _weapon.Attack(_position, target);
+        }
+
+        public override void Damage(int amount)
+        {
+            base.Damage(amount);
+            _timeSinceLastHit = SplashKit.TimerTicks("gameTimer");
+        }
+
+        private void Regenerate() {
+            Heal(1);
+            _timeSinceLastRegen = SplashKit.TimerTicks("gameTimer");
+        }
+
+        public override void Update(uint fps)
+        {
+            base.Update(fps);
+            if (SplashKit.TimerTicks("gameTimer") - _timeSinceLastHit >= 3000 && SplashKit.TimerTicks("gameTimer") - _timeSinceLastRegen >= 500) {
+                Regenerate();
+            }
         }
     }
 }

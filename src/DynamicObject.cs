@@ -4,7 +4,7 @@ namespace DescendBelow {
     public abstract class DynamicObject : GameObject {
         protected Vector2D _velocity;
 
-        public DynamicObject(Point2D position, double width, double height, Bitmap sprite, Vector2D initialVelocity) : base(position, width, height, sprite) {
+        public DynamicObject(Point2D position, double width, double height, Bitmap sprite, Vector2D initialVelocity, int zIndex = 1) : base(position, width, height, sprite, zIndex) {
             _velocity = initialVelocity;
         }
 
