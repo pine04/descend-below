@@ -2,6 +2,11 @@ using SplashKitSDK;
 
 namespace DescendBelow {
     public abstract class DynamicObject : GameObject {
+        protected enum FacingDirection {
+            Left,
+            Right
+        }
+
         protected Vector2D _velocity;
 
         public DynamicObject(Point2D position, double width, double height, Bitmap sprite, Vector2D initialVelocity, int zIndex = 1) : base(position, width, height, sprite, zIndex) {
@@ -31,6 +36,23 @@ namespace DescendBelow {
                 _position.X + displacement.X,
                 _position.Y + displacement.Y
             );
+        }
+
+        protected FacingDirection GetFacingDirection() {
+            if (Velocity.X >= 0) {
+                return FacingDirection.Right;
+            } else {
+                return FacingDirection.Left;
+            }
+        }
+
+        public override void Draw(DrawingOptions options)
+        {
+            if (GetFacingDirection() == FacingDirection.Left) {
+                base.Draw(SplashKit.OptionFlipY(options));
+            } else {
+                base.Draw(options);
+            }
         }
     }
 }

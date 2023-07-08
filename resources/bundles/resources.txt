@@ -11,6 +11,8 @@ BITMAP,shrub,shrub.png
 BITMAP,leaf,leaf.png
 BITMAP,interactionArrow,interactionArrow.png
 BITMAP,staircase,staircase.png
+BITMAP,player,player.png,48,48,4,1,4
+ANIM,playerWalkingScript,playerAnimations.txt
 FONT,pixel,pixelated_font.ttf,14
 MUSIC,circumambient,circumambient.mp3
 TIMER,gameTimer

@@ -18,7 +18,7 @@ namespace DescendBelow {
             LoadResources();
             _window = new Window("Descend Below (Lite)", 1200, 768);
             _objectsOnScreen = new List<GameObject>();
-            _player = new Player(SplashKit.PointAt(360, 360), 15, 39, SplashKit.BitmapNamed("arrow"), new Vector2D() { X = 0, Y = 0 }, 250);
+            _player = new Player(SplashKit.PointAt(360, 360), new Vector2D() { X = 0, Y = 0 }, 250);
             _objectsOnScreen.Add(_player);
             _options = SplashKit.OptionDefaults();
             _floor = new Floor(true);
