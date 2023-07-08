@@ -1,6 +1,0 @@
-SplashKit Animation
-
-f:0,0,30,1
-f:1,1,30,0
-
-i:blob,0

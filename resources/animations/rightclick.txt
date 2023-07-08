@@ -1,0 +1,6 @@
+SplashKit Animation
+
+f:0,0,25,1
+f:1,1,25,0
+
+i:blink,0
