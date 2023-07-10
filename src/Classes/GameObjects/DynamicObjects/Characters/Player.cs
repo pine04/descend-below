@@ -8,7 +8,7 @@ namespace DescendBelow {
         private Animation _playerWalkAnimation;
 
         public Player(Point2D position, Vector2D initialVelocity, int maxHealth) : base(position, 42, 42, SplashKit.BitmapNamed("player"), initialVelocity, maxHealth, 20) {
-            _weapon = new Bow(10, .5);
+            _weapon = new Bow(40, .5);
             _timeSinceLastHit = 0;
             _timeSinceLastRegen = 0;
 
@@ -17,23 +17,16 @@ namespace DescendBelow {
         }
 
         public void Halt() {
-            Velocity = new Vector2D() { X = 0, Y = 0 };
+            Velocity = SplashKit.VectorTo(0, 0);
         }
 
-        public void MoveLeft() {
-            _velocity = SplashKit.VectorAdd(_velocity, SplashKit.VectorMultiply(new Vector2D() { X = -1, Y = 0 }, 150));
-        }
+        public void MoveAlong(Vector2D direction) {
+            Vector2D currentDirection = SplashKit.UnitVector(Velocity);
+            Vector2D additionalDirection = SplashKit.UnitVector(direction);
 
-        public void MoveRight() {
-            _velocity = SplashKit.VectorAdd(_velocity, SplashKit.VectorMultiply(new Vector2D() { X = 1, Y = 0 }, 150));
-        }
+            Vector2D newDirection = SplashKit.UnitVector(SplashKit.VectorAdd(currentDirection, additionalDirection));
 
-        public void MoveUp() {
-            _velocity = SplashKit.VectorAdd(_velocity, SplashKit.VectorMultiply(new Vector2D() { X = 0, Y = -1 }, 150));
-        }
-
-        public void MoveDown() {
-            _velocity = SplashKit.VectorAdd(_velocity, SplashKit.VectorMultiply(new Vector2D() { X = 0, Y = 1 }, 150));
+            Velocity = SplashKit.VectorMultiply(newDirection, 150);
         }
 
         public void Attack(Point2D target) {

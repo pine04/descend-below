@@ -2,11 +2,11 @@ using SplashKitSDK;
 
 namespace DescendBelow {
     public abstract class Weapon {
-        protected double _damage;
+        protected int _damage;
         protected double _attackCooldown;
         protected uint _timeSinceLastAtk; 
 
-        public Weapon(double damage, double attackCooldown) {
+        public Weapon(int damage, double attackCooldown) {
             _damage = damage;
             _attackCooldown = attackCooldown;
             _timeSinceLastAtk = SplashKit.TimerTicks("gameTimer");

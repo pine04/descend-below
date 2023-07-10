@@ -70,16 +70,16 @@ namespace DescendBelow {
 
                 _player.Halt();
                 if (SplashKit.KeyDown(KeyCode.WKey)) {
-                    _player.MoveUp();
-                }
-                if (SplashKit.KeyDown(KeyCode.AKey)) {
-                    _player.MoveLeft();
+                    _player.MoveAlong(SplashKit.VectorTo(0, -1));
                 }
                 if (SplashKit.KeyDown(KeyCode.SKey)) {
-                    _player.MoveDown();
+                    _player.MoveAlong(SplashKit.VectorTo(0, 1));
+                }
+                if (SplashKit.KeyDown(KeyCode.AKey)) {
+                    _player.MoveAlong(SplashKit.VectorTo(-1, 0));
                 }
                 if (SplashKit.KeyDown(KeyCode.DKey)) {
-                    _player.MoveRight();
+                    _player.MoveAlong(SplashKit.VectorTo(1, 0));
                 }
 
                 if (SplashKit.MouseDown(MouseButton.LeftButton)) {
