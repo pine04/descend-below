@@ -19,5 +19,5 @@ ANIM,wizard,wizard.txt
 ANIM,fireball,fireball.txt
 ANIM,rightclick,rightclick.txt
 FONT,pixel,pixelated_font.ttf,14
-MUSIC,killvmaim,killvmaim.mp3
+MUSIC,music,music.mp3
 TIMER,gameTimer

@@ -22,7 +22,7 @@ namespace DescendBelow {
             return SplashKit.QuadsIntersect(GetColliderBox(), c.GetColliderBox());
         }
 
-        public Quad GetColliderBox() {
+        private Quad GetColliderBox() {
             Quad colliderBox = _baseColliderBox;
             Matrix2D translationMatrix = SplashKit.TranslationMatrix(_gameObject.Position.X, _gameObject.Position.Y);
             SplashKit.ApplyMatrix(translationMatrix, ref colliderBox);

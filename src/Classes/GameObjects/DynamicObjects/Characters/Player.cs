@@ -21,12 +21,7 @@ namespace DescendBelow {
         }
 
         public void MoveAlong(Vector2D direction) {
-            Vector2D currentDirection = SplashKit.UnitVector(Velocity);
-            Vector2D additionalDirection = SplashKit.UnitVector(direction);
-
-            Vector2D newDirection = SplashKit.UnitVector(SplashKit.VectorAdd(currentDirection, additionalDirection));
-
-            Velocity = SplashKit.VectorMultiply(newDirection, 150);
+            Velocity = SplashKit.VectorAdd(Velocity, SplashKit.VectorMultiply(direction, 150));
         }
 
         public void Attack(Point2D target) {

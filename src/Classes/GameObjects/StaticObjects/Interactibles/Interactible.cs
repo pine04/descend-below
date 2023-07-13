@@ -1,11 +1,11 @@
 using SplashKitSDK;
 
 namespace DescendBelow {
-    public abstract class Interactible : StaticObject {
+    public abstract class Interactable : StaticObject {
         protected double _range;
         private Animation _rightClickBlinkAnimation;
 
-        public Interactible(Point2D position, double width, double height, Bitmap sprite, double range) : base(position, width, height, sprite) {
+        public Interactable(Point2D position, double width, double height, Bitmap sprite, double range) : base(position, width, height, sprite) {
             _range = range;
             _rightClickBlinkAnimation = SplashKit.AnimationScriptNamed("rightclick").CreateAnimation("blink");
         }
@@ -17,7 +17,7 @@ namespace DescendBelow {
         public override void Draw(DrawingOptions options)
         {
             base.Draw(options);
-            if (IsNearPlayer(Game.CurrentGame?.CurrentPlayer)) {
+            if (Game.CurrentGame != null && IsNearPlayer(Game.CurrentGame.CurrentPlayer)) {
                 SplashKit.DrawBitmap("rightclick", Position.X - 11, Position.Y - Height / 2 - 42, SplashKit.OptionWithAnimation(_rightClickBlinkAnimation));
             }
         }

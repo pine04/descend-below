@@ -8,7 +8,7 @@ namespace DescendBelow {
         {
             Vector2D direction = SplashKit.VectorPointToPoint(Position, player.Position);
             Game.CurrentGame?.AddGameObjectOnScreen(
-                new Projectile(Position, 15, 21, SplashKit.BitmapNamed("leaf"), direction, 300, ProjectileType.Hostile, 20)
+                new Projectile(Position, 15, 21, SplashKit.BitmapNamed("leaf"), direction, 200, ProjectileType.Hostile, 20)
             );
         }
     }

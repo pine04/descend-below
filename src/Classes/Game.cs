@@ -6,42 +6,39 @@ namespace DescendBelow {
     public class Game {
         public static Game? CurrentGame;
         private Window _window;
-        private Player _player;
-        private Floor _floor;
-        private Room _currentRoom;
-        private List<GameObject> _objectsOnScreen;
         private DrawingOptions _options;
         private GameState _state;
+        private Floor _floor;
         private int _floorCounter;
+        private Room _currentRoom;
+        private List<GameObject> _objectsOnScreen;
+        private Player _player;
 
-        public Game() {
+        private Game() {
             LoadResources();
+
             _window = new Window("Descend Below (Lite)", 1200, 768);
-            _objectsOnScreen = new List<GameObject>();
-            _player = new Player(SplashKit.PointAt(360, 360), new Vector2D() { X = 0, Y = 0 }, 250);
-            _objectsOnScreen.Add(_player);
             _options = SplashKit.OptionDefaults();
-            _floor = new Floor(true);
+            SplashKit.PlayMusic("music", 200);
+            SplashKit.StartTimer("gameTimer");
+
+            _objectsOnScreen = new List<GameObject>();
+            _player = new Player(SplashKit.PointAt(360, 360), SplashKit.VectorTo(0, 0), 250);
+            _objectsOnScreen.Add(_player);
+
+            _floor = Floor.CreateFloorZero();
             _currentRoom = _floor.StartRoom;
-            _currentRoom.Enter();
+            EnterRoom(_currentRoom, Direction.North);
+
             _state = GameState.Playing;
             _floorCounter = 0;
-
-            LoadRoom();
-
-            CurrentGame = this;
-            SplashKit.PlayMusic("killvmaim", 200);
-
-            SplashKit.StartTimer("gameTimer");
         }
 
-        private void LoadRoom() {
-            _objectsOnScreen = new List<GameObject>();
-            _objectsOnScreen.Add(_player);
-
-            foreach (GameObject gameObject in _currentRoom.GameObjects) {
-                _objectsOnScreen.Add(gameObject);
+        public static Game CreateGame() {
+            if (CurrentGame == null) {
+                CurrentGame = new Game();
             }
+            return CurrentGame;
         }
 
         public void Run() {
@@ -93,14 +90,14 @@ namespace DescendBelow {
 
                 if (SplashKit.MouseClicked(MouseButton.RightButton)) {
                     foreach (GameObject gameObject in _objectsOnScreen) {
-                        Interactible? interactible = gameObject as Interactible;
+                        Interactable? interactable = gameObject as Interactable;
 
-                        if (interactible == null) {
+                        if (interactable == null) {
                             continue;
                         }
 
-                        if (interactible.IsNearPlayer(_player) && interactible.IsHoveredOn(SplashKit.MousePosition())) {
-                            interactible.HandleInteraction();
+                        if (interactable.IsNearPlayer(_player) && interactable.IsHoveredOn(SplashKit.MousePosition())) {
+                            interactable.HandleInteraction();
                         }
                     }
                 }
@@ -108,6 +105,10 @@ namespace DescendBelow {
                 if (SplashKit.KeyTyped(KeyCode.EscapeKey)) {
                     _state = GameState.Playing;
                     SplashKit.ResumeTimer("gameTimer");
+                }
+            } else if (_state == GameState.Lost) {
+                if (SplashKit.KeyTyped(KeyCode.ReturnKey)) {
+                    ResetGame();
                 }
             }
 
@@ -140,25 +141,25 @@ namespace DescendBelow {
         private void HandleCollisions() {
             if (_state == GameState.Playing) {
 
-            for (int i = 0; i < _objectsOnScreen.Count; i++) {
-                ICollidable? gameObject = _objectsOnScreen[i] as ICollidable;
-                
-                if (gameObject != null) {
-                    for (int j = i + 1; j < _objectsOnScreen.Count; j++) {
-                        ICollidable? targetObject = _objectsOnScreen[j] as ICollidable;
+                for (int i = 0; i < _objectsOnScreen.Count; i++) {
+                    ICollidable? gameObject = _objectsOnScreen[i] as ICollidable;
+                    
+                    if (gameObject != null) {
+                        for (int j = i + 1; j < _objectsOnScreen.Count; j++) {
+                            ICollidable? targetObject = _objectsOnScreen[j] as ICollidable;
 
-                        if (targetObject != null && gameObject.Collider.IsCollidingWith(targetObject.Collider)) {
-                            gameObject.Collide(targetObject.Collider);
-                            targetObject.Collide(gameObject.Collider);
+                            if (targetObject != null && gameObject.Collider.IsCollidingWith(targetObject.Collider)) {
+                                gameObject.Collide(targetObject.Collider);
+                                targetObject.Collide(gameObject.Collider);
+                            }
                         }
                     }
                 }
             }
-            }
         }
 
         private void Draw() {
-            SplashKit.ClearScreen(SplashKit.RGBColor(69, 40, 60));
+            SplashKit.ClearScreen(Constants.BackgroundColor);
 
             SplashKit.FillRectangle(Color.RGBColor(153, 230, 95), 96, 96, 528, 528);
             List<GameObject> orderedObjects = new List<GameObject>(_objectsOnScreen);
@@ -178,9 +179,9 @@ namespace DescendBelow {
                 SplashKit.DrawText("YOU DIED", Color.RGBColor(196, 36, 48), "pixel", 48, 360, 360);
             }
 
-            SplashKit.DrawText("Floor " + _floorCounter, Color.White, "pixel", 16, 0, 0);
+            SplashKit.DrawText("Floor " + _floorCounter, Color.White, "pixel", 16, 656, 96);
 
-            _floor.DrawMap(_currentRoom); // Change method name to DrawMinimap, pass in the top left corner coordinates of it instead of hard coding the coordinates.
+            _floor.DrawMinimap(656, 120, _currentRoom);
         }
 
         private int CompareByZIndex(GameObject a, GameObject b) {
@@ -202,7 +203,24 @@ namespace DescendBelow {
             _currentRoom.Enter();
             LoadRoom();
 
-            _player.MoveTo(SplashKit.PointAt(360, 360));
+            if (enterDirection == Direction.North) {
+                _player.MoveTo(SplashKit.PointAt(360, 216));
+            } else if (enterDirection == Direction.East) {
+                _player.MoveTo(SplashKit.PointAt(504, 360));
+            } else if (enterDirection == Direction.South) {
+                _player.MoveTo(SplashKit.PointAt(360, 504));            
+            } else if (enterDirection == Direction.West) {
+                _player.MoveTo(SplashKit.PointAt(216, 360));
+            }
+        }
+
+        private void LoadRoom() {
+            _objectsOnScreen = new List<GameObject>();
+            _objectsOnScreen.Add(_player);
+
+            foreach (GameObject gameObject in _currentRoom.GameObjects) {
+                _objectsOnScreen.Add(gameObject);
+            }
         }
 
         public Player CurrentPlayer {
@@ -210,9 +228,21 @@ namespace DescendBelow {
         }
 
         public void EnterNewFloor() {
-            _floor = new Floor(false);
+            _floor = Floor.CreateFloor();
             EnterRoom(_floor.StartRoom, Direction.North);
             _floorCounter++;
+        }
+
+        private void ResetGame() {
+            _objectsOnScreen = new List<GameObject>();
+            _player = new Player(SplashKit.PointAt(360, 360), new Vector2D() { X = 0, Y = 0 }, 250);
+            _objectsOnScreen.Add(_player);
+            _floor = Floor.CreateFloorZero();
+            _currentRoom = _floor.StartRoom;
+            _currentRoom.Enter();
+            _state = GameState.Playing;
+            _floorCounter = 0;
+            LoadRoom();
         }
     }
 }

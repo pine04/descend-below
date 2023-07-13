@@ -14,7 +14,7 @@ namespace DescendBelow {
         {
             Vector2D direction = SplashKit.VectorPointToPoint(Position, player.Position);
             Game.CurrentGame?.AddGameObjectOnScreen(
-                new FireballProjectile(Position, direction, 300, ProjectileType.Hostile, 20)
+                new FireballProjectile(Position, direction, 200, ProjectileType.Hostile, 20)
             );
         }
 

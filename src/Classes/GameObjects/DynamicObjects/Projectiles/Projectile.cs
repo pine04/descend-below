@@ -21,10 +21,10 @@ namespace DescendBelow {
 
         public override void Draw(DrawingOptions options) {
             double angle = 90 + _rotation;
-            _sprite.Draw(_position.X - _width / 2, _position.Y - _height / 2, SplashKit.OptionRotateBmp(angle, options));
+            base.Draw(SplashKit.OptionRotateBmp(angle, options));
         }
 
-        public void Collide(Collider c) {
+        public virtual void Collide(Collider c) {
             if (c.GameObject is StaticObject) {
                 _canDestroy = true;
             } else if (c.GameObject is Player && _projectileType == ProjectileType.Hostile) {

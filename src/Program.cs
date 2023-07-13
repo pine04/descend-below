@@ -8,7 +8,7 @@ namespace DescendBelow
     {
         public static void Main()
         {
-            Game game = new Game();
+            Game game = Game.CreateGame();
             game.Run();
             game.CleanUp();
         }

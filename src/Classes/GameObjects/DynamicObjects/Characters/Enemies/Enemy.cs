@@ -5,22 +5,10 @@ namespace DescendBelow
     public abstract class Enemy : Character, IDestroyable
     {
         private uint _timeSinceLastAtk;
+
         public Enemy(Point2D position, double width, double height, Bitmap sprite, Vector2D initialVelocity, int maxHealth) : base(position, width, height, sprite, initialVelocity, maxHealth, 10)
         {
             _timeSinceLastAtk = SplashKit.TimerTicks("gameTimer");
-        }
-
-        public override void Draw(DrawingOptions options)
-        {
-            base.Draw(options);
-
-            SplashKit.FillRectangle(Color.RGBColor(217, 87, 99), _position.X - 24, _position.Y + _height / 2 + 8, 48, 10);
-            SplashKit.FillRectangle(Color.RGBColor(55, 148, 110), _position.X - 24, _position.Y + _height / 2 + 8, 48 * _health / _maxHealth, 10);
-        }
-
-        public bool CanDestroy
-        {
-            get { return IsDead(); }
         }
 
         public abstract void Attack(Player player);
@@ -31,6 +19,14 @@ namespace DescendBelow
             } else {
                 Velocity = SplashKit.VectorTo(0, 0);
             }
+        }
+
+        public override void Draw(DrawingOptions options)
+        {
+            base.Draw(options);
+
+            SplashKit.FillRectangle(Color.RGBColor(217, 87, 99), _position.X - 24, _position.Y + _height / 2 + 8, 48, 10);
+            SplashKit.FillRectangle(Color.RGBColor(55, 148, 110), _position.X - 24, _position.Y + _height / 2 + 8, 48 * _health / _maxHealth, 10);
         }
 
         public override void Update(uint fps)
@@ -44,7 +40,6 @@ namespace DescendBelow
             if (targetPlayer != null) {
                 Move(targetPlayer);
             }
-
             
             base.Update(fps);
         }
@@ -61,6 +56,11 @@ namespace DescendBelow
                     return FacingDirection.Right;
                 }
             }
+        }
+
+        public bool CanDestroy
+        {
+            get { return IsDead(); }
         }
     }
 }
