@@ -3,6 +3,7 @@ namespace DescendBelow {
     public enum GameState {
         Playing,
         Paused,
-        Lost
+        Lost,
+        OpenChest
     }
 }

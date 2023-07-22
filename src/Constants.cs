@@ -9,5 +9,6 @@ namespace DescendBelow {
         public static Color MinimapBackgroundColor = Color.RGBColor(155, 173, 183);
         public static Color MinimapCurrentRoomColor = Color.RGBColor(217, 87, 99);
         public static Color MinimapRoomColor = Color.White;
+        public static Color LostTextColor = Color.RGBColor(196, 36, 48);
     }
 }

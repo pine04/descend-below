@@ -48,13 +48,5 @@ namespace DescendBelow {
                 _health = _maxHealth;
             }
         }
-
-        public int Health {
-            get { return _health; }
-        }
-
-        public int MaxHealth {
-            get { return _maxHealth; }
-        }
     }
 }

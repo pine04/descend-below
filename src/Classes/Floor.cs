@@ -19,11 +19,11 @@ namespace DescendBelow {
             return floor;
         }
 
-        public static Floor CreateFloor() {
+        public static Floor CreateFloor(int floorLevel) {
             Floor floor = new Floor();
 
             string[,] layout = GetFloorLayout();
-            GenerateRooms(floor, layout);
+            GenerateRooms(floor, floorLevel, layout);
             ConnectRooms(floor);
 
             (int row, int col) = GetStartRoomPosition(layout);
@@ -57,7 +57,7 @@ namespace DescendBelow {
             return layout;
         }
 
-        private static void GenerateRooms(Floor floor, string[,] layout) {
+        private static void GenerateRooms(Floor floor, int floorLevel, string[,] layout) {
             bool hasNorthExit, hasEastExit, hasSouthExit, hasWestExit;
 
             for (int i = 0; i < layout.GetLength(0); i++) {
@@ -91,9 +91,9 @@ namespace DescendBelow {
                     }
 
                     if (layout[i, j] == "E") {
-                        floor._rooms[i, j] = Room.CreateEndRoom(hasNorthExit, hasEastExit, hasSouthExit, hasWestExit);
+                        floor._rooms[i, j] = Room.CreateEndRoom(floorLevel, hasNorthExit, hasEastExit, hasSouthExit, hasWestExit);
                     } else {
-                        floor._rooms[i, j] = Room.CreateRoom(hasNorthExit, hasEastExit, hasSouthExit, hasWestExit);
+                        floor._rooms[i, j] = Room.CreateRoom(floorLevel, hasNorthExit, hasEastExit, hasSouthExit, hasWestExit);
                     }
                 }
             }

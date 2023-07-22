@@ -4,6 +4,21 @@ using System;
 
 namespace DescendBelow {
     public class Room {
+        private static Rectangle[] ENEMY_SPAWN_ZONES = new Rectangle[] {
+            SplashKit.RectangleFrom(SplashKit.PointAt(216, 216), 96, 96),
+            SplashKit.RectangleFrom(SplashKit.PointAt(408, 216), 96, 96),
+            SplashKit.RectangleFrom(SplashKit.PointAt(288, 288), 144, 144),
+            SplashKit.RectangleFrom(SplashKit.PointAt(216, 408), 96, 96),
+            SplashKit.RectangleFrom(SplashKit.PointAt(408, 408), 96, 96)
+        };
+
+        private static Point2D[] CHEST_SPAWN_LOCATIONS = new Point2D[] {
+            SplashKit.PointAt(168, 168), SplashKit.PointAt(216, 168), SplashKit.PointAt(264, 168), SplashKit.PointAt(168, 216), SplashKit.PointAt(168, 264),
+            SplashKit.PointAt(456, 168), SplashKit.PointAt(504, 168), SplashKit.PointAt(552, 168), SplashKit.PointAt(552, 216), SplashKit.PointAt(552, 264),
+            SplashKit.PointAt(168, 456), SplashKit.PointAt(168, 504), SplashKit.PointAt(168, 552), SplashKit.PointAt(216, 552), SplashKit.PointAt(264, 552),
+            SplashKit.PointAt(456, 552), SplashKit.PointAt(504, 552), SplashKit.PointAt(552, 552), SplashKit.PointAt(552, 504), SplashKit.PointAt(552, 456)
+        };
+
         private List<GameObject> _gameObjects;
         private bool _entered;
 
@@ -24,7 +39,7 @@ namespace DescendBelow {
             return room;
         }
 
-        public static Room CreateRoom(bool hasNorthExit, bool hasEastExit, bool hasSouthExit, bool hasWestExit) {
+        public static Room CreateRoom(int floorLevel, bool hasNorthExit, bool hasEastExit, bool hasSouthExit, bool hasWestExit) {
             Room room = new Room();
 
             if (hasNorthExit) {
@@ -59,36 +74,35 @@ namespace DescendBelow {
             int enemyCount = random.Next(3, 6);
             for (int i = 0; i < enemyCount; i++) {
                 if (random.NextDouble() >= 0.5) {
-                    room._gameObjects.Add(new Shrub(GetRandomEnemySpawnPosition()));
+                    room._gameObjects.Add(new Shrub(GetRandomEnemySpawnPosition(), floorLevel));
                 } else {
-                    room._gameObjects.Add(new Wizard(GetRandomEnemySpawnPosition()));
+                    room._gameObjects.Add(new Wizard(GetRandomEnemySpawnPosition(), floorLevel));
                 }
             }
+
+            room._gameObjects.Add(new Chest(GetRandomChestSpawnPosition()));
 
             return room;
         }
 
-        public static Room CreateEndRoom(bool hasNorthExit, bool hasEastExit, bool hasSouthExit, bool hasWestExit) {
-            Room room = CreateRoom(hasNorthExit, hasEastExit, hasSouthExit, hasWestExit);
+        public static Room CreateEndRoom(int floorLevel, bool hasNorthExit, bool hasEastExit, bool hasSouthExit, bool hasWestExit) {
+            Room room = CreateRoom(floorLevel, hasNorthExit, hasEastExit, hasSouthExit, hasWestExit);
             room._gameObjects.Add(new Staircase(SplashKit.PointAt(360, 360)));
             return room;
         }
 
         private static Point2D GetRandomEnemySpawnPosition() {
-            Rectangle[] spawnZones = new Rectangle[] {
-                SplashKit.RectangleFrom(SplashKit.PointAt(192, 192), 96, 96),
-                SplashKit.RectangleFrom(SplashKit.PointAt(432, 192), 96, 96),
-                SplashKit.RectangleFrom(SplashKit.PointAt(288, 288), 144, 144),
-                SplashKit.RectangleFrom(SplashKit.PointAt(192, 432), 96, 96),
-                SplashKit.RectangleFrom(SplashKit.PointAt(432, 432), 96, 96)
-            };
-
             Random random = new Random();
-            Rectangle zone = spawnZones[random.Next(5)];
+            Rectangle zone = ENEMY_SPAWN_ZONES[random.Next(5)];
             double x = zone.X + zone.Width * random.NextDouble();
             double y = zone.Y + zone.Height * random.NextDouble();
 
             return SplashKit.PointAt(x, y);
+        }
+
+        private static Point2D GetRandomChestSpawnPosition() {
+            Random random = new Random();
+            return CHEST_SPAWN_LOCATIONS[random.Next(20)];
         }
 
         public bool Entered {
@@ -110,6 +124,14 @@ namespace DescendBelow {
 
         public void Enter() {
             _entered = true;
+
+            foreach (GameObject gameObject in _gameObjects) {
+                Enemy? enemy = gameObject as Enemy;
+
+                if (enemy != null) {
+                    enemy.Cooldown();
+                }
+            }
         }
 
         public void AddExit(Direction direction, Room destination) {

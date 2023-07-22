@@ -45,5 +45,7 @@ namespace DescendBelow {
         public bool CanDestroy {
             get { return _canDestroy; }
         }
+
+        public void Destroy() { }
     }
 }
