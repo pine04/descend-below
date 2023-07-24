@@ -2,6 +2,7 @@ using SplashKitSDK;
 
 namespace DescendBelow
 {
+    // Represents an enemy, which can attack the player and be destroyed upon death.
     public abstract class Enemy : Character, IDestroyable
     {
         protected int _experienceValue;

@@ -1,6 +1,7 @@
 using SplashKitSDK;
 
 namespace DescendBelow {
+    // Some global constants.
     public static class Constants {
         public static Color TemplateNormalRoomColor = Color.RGBColor(238, 195, 154);
         public static Color TemplateStartRoomColor = Color.RGBColor(251, 242, 54);

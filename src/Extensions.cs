@@ -2,6 +2,7 @@ using SplashKitSDK;
 
 namespace DescendBelow {
     public static class Extensions {
+        // Gets the opposite direction.
         public static Direction GetOpposite(this Direction direction) {
             switch (direction) {
                 case Direction.North:
@@ -17,6 +18,7 @@ namespace DescendBelow {
             }
         }
 
+        // Checks if two colors are the same.
         public static bool Equals(this Color color, Color targetColor) {
             return color.A == targetColor.A && color.R == targetColor.R && color.G == targetColor.G && color.B == targetColor.B;
         }

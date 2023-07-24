@@ -1,6 +1,7 @@
 using SplashKitSDK;
 
 namespace DescendBelow {
+    // Represents an object that has a name, description, and icon.
     public abstract class Item {
         protected string _name, _description;
         protected Bitmap _icon;

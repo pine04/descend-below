@@ -1,6 +1,7 @@
 using SplashKitSDK;
 
 namespace DescendBelow {
+    // Defines the behavior of a fireball projectile, which has an animation.
     public class FireballProjectile : Projectile {
         private Animation _fireballAnimation;
 

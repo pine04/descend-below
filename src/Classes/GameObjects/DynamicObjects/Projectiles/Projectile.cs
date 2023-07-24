@@ -1,14 +1,17 @@
 using SplashKitSDK;
 
 namespace DescendBelow {
+    // Friendly projectiles damage enemies. Hostile projectiles damage players.
     public enum ProjectileType { Friendly, Hostile }
     
+    // Represents a generic projectile object that can damage players/enemies.
     public class Projectile : DynamicObject, ICollidable, IDestroyable {
+        // Projectiles have a rotation value. This allows them to be fired in many directions.
         private double _rotation;
         private Collider _collider;
         private bool _canDestroy;
         private ProjectileType _projectileType;
-        private int _damage;
+        protected int _damage;
 
         public Projectile(Point2D position, double width, double height, Bitmap sprite, Vector2D initialVelocity, double targetSpeed, ProjectileType type, int damage) : base(position, width, height, sprite, initialVelocity, 50) {
             _velocity = SplashKit.VectorMultiply(SplashKit.UnitVector(initialVelocity), targetSpeed);
@@ -24,6 +27,7 @@ namespace DescendBelow {
             base.Draw(SplashKit.OptionRotateBmp(angle, options));
         }
 
+        // Defines the collision behavior of the projectile.
         public virtual void Collide(Collider c) {
             if (c.GameObject is StaticObject) {
                 _canDestroy = true;

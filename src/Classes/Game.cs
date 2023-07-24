@@ -4,6 +4,13 @@ using System.Collections.Generic;
 
 namespace DescendBelow {
     public class Game {
+        private enum GameState {
+            Playing,
+            Paused,
+            Lost,
+            OpenChest
+        }
+        
         public static Game? CurrentGame;
         private Window _window;
         private DrawingOptions _options;
@@ -18,7 +25,7 @@ namespace DescendBelow {
         private Game() {
             LoadResources();
 
-            _window = new Window("Descend Below (Lite)", 1200, 768);
+            _window = new Window("Descend Below", 1200, 768);
             _options = SplashKit.OptionDefaults();
             SplashKit.PlayMusic("music", 200);
             SplashKit.SetMusicVolume(0.75f);
@@ -87,6 +94,10 @@ namespace DescendBelow {
 
                 if (SplashKit.KeyTyped(KeyCode.EKey)) {
                     _player.UseSpell();
+                }
+
+                if (SplashKit.KeyTyped(KeyCode.QKey)) {
+                    _player.DrinkPotion();
                 }
 
                 if (SplashKit.KeyTyped(KeyCode.EscapeKey)) {
@@ -235,7 +246,9 @@ namespace DescendBelow {
             SplashKit.DrawText("WASD to move.", Color.White, "pixel", 16, x, y + 76);
             SplashKit.DrawText("Left click to attack.", Color.White, "pixel", 16, x, y + 96);
             SplashKit.DrawText("Right click to interact with a nearby object.", Color.White, "pixel", 16, x, y + 116);
-            SplashKit.DrawText("ESC to pause/unpause.", Color.White, "pixel", 16, x, y + 136);
+            SplashKit.DrawText("E to use spell (only if equipped.)", Color.White, "pixel", 16, x, y + 136);
+            SplashKit.DrawText("Q to use a healing charge.", Color.White, "pixel", 16, x, y + 156);
+            SplashKit.DrawText("ESC to pause/unpause.", Color.White, "pixel", 16, x, y + 176);
         }
 
         public void AddGameObjectOnScreen(GameObject gameObject) {
@@ -304,7 +317,7 @@ namespace DescendBelow {
         private int GetItemIndexFromMousePosition(Point2D mousePosition) {
             int x = 656, y = 500;
 
-            if (mousePosition.X < x + 240 || mousePosition.X > x + 309) {
+            if (mousePosition.X < x + 450 || mousePosition.X > x + 519) {
                 return -1;
             }
 
@@ -329,8 +342,6 @@ namespace DescendBelow {
                     _activeChest?.AddItem(playerItem);
                 }
             }
-
-            Console.WriteLine(_activeChest?._items.Count);
         }
 
         public List<Enemy> GetAllEnemies() {

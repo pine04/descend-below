@@ -1,6 +1,7 @@
 using SplashKitSDK;
 
 namespace DescendBelow {
+    // Represents a static game object that can be interacted with by right clicking.
     public abstract class Interactable : StaticObject {
         protected double _range;
         private Animation _rightClickBlinkAnimation;
@@ -33,6 +34,7 @@ namespace DescendBelow {
                     mousePosition.Y >= Position.Y - Height / 2 && mousePosition.Y <= Position.Y + Height / 2;
         }
 
+        // This abstract method will be overriden by child classes to define their behavior when interacted with.
         public abstract void HandleInteraction();
     }
 }

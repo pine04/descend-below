@@ -1,35 +1,35 @@
 // ------
 // Bitmaps
 // ------
-BITMAP,arrow,arrow.png
+BITMAP,floorShapes,floor-shapes.png
+BITMAP,grassfloor,grassfloor.png
 BITMAP,shortHorizontalGrassWall,short_horizontal_grass_wall.png
 BITMAP,longHorizontalGrassWall,long_horizontal_grass_wall.png
 BITMAP,shortVerticalGrassWall,short_vertical_grass_wall.png
 BITMAP,longVerticalGrassWall,long_vertical_grass_wall.png
 BITMAP,blockedExitHorizontal,blocked_exit_horizontal.png
 BITMAP,blockedExitVertical,blocked_exit_vertical.png
-BITMAP,grassfloor,grassfloor.png
-BITMAP,floorShapes,floor-shapes.png
-BITMAP,heart,heart.png
-BITMAP,damageIcon,damageIcon.png
-BITMAP,shrub,shrub.png
-BITMAP,leaf,leaf.png
 BITMAP,staircase,staircase.png
-BITMAP,player,player.png,42,42,6,1,6
-BITMAP,wizard,wizard.png,42,42,6,1,6
+BITMAP,chest,chest.png
+BITMAP,arrow,arrow.png
+BITMAP,spellball,spellball.png,27,42,4,1,4
+BITMAP,leaf,leaf.png
 BITMAP,fireball,fireball.png,21,39,4,1,4
-BITMAP,rightclick,rightclick.png,21,36,2,1,2
-BITMAP,bow,bow.png
+BITMAP,heart,heart.png
 BITMAP,xp,xp.png
 BITMAP,healthbar,healthbar.png
 BITMAP,xpbar,xpbar.png
-BITMAP,chest,chest.png
-BITMAP,takebutton,takebutton.png
+BITMAP,player,player.png,42,42,6,1,6
+BITMAP,shrub,shrub.png
+BITMAP,wizard,wizard.png,42,42,6,1,6
+BITMAP,bow,bow.png
+BITMAP,spelltome,spelltome.png
 BITMAP,heal,heal.png
 BITMAP,lightning,lightning.png
-BITMAP,spelltome,spelltome.png
-BITMAP,spellball,spellball.png,27,42,4,1,4
-BITMAP,spellballex,spellballex.png,27,42,4,1,4
+BITMAP,potion,potion.png
+BITMAP,takebutton,takebutton.png
+BITMAP,exitArrow,exitArrow.png,27,39,4,1,4
+BITMAP,rightclick,rightclick.png,21,36,2,1,2
 // ------
 // Animations
 // ------
@@ -37,6 +37,7 @@ ANIM,player,player.txt
 ANIM,wizard,wizard.txt
 ANIM,fireball,fireball.txt
 ANIM,rightclick,rightclick.txt
+ANIM,exitArrow,exitArrow.txt
 // ------
 // Fonts
 // ------

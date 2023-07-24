@@ -7,5 +7,9 @@ namespace DescendBelow {
         public static double RandomDoubleBetween(double min, double max) {
             return random.NextDouble() * (max - min) + min;
         }
+
+        public static int RandomIntBetween(int min, int max) {
+            return random.Next(min, max);
+        }
     }
 }

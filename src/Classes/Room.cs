@@ -70,17 +70,18 @@ namespace DescendBelow {
                 room._gameObjects.Add(new Wall(SplashKit.PointAt(120, 360), 48, 528, SplashKit.BitmapNamed("longVerticalGrassWall")));
             }
 
-            Random random = new Random();
-            int enemyCount = random.Next(3, 6);
+            int enemyCount = RandGen.RandomIntBetween(3, 6);
             for (int i = 0; i < enemyCount; i++) {
-                if (random.NextDouble() >= 0.5) {
+                if (RandGen.RandomDoubleBetween(0, 1) >= 0.5) {
                     room._gameObjects.Add(new Shrub(GetRandomEnemySpawnPosition(), floorLevel));
                 } else {
                     room._gameObjects.Add(new Wizard(GetRandomEnemySpawnPosition(), floorLevel));
                 }
             }
 
-            room._gameObjects.Add(new Chest(GetRandomChestSpawnPosition()));
+            if (RandGen.RandomDoubleBetween(0, 1) <= 0.2) {
+                room._gameObjects.Add(new Chest(GetRandomChestSpawnPosition(), floorLevel));
+            }
 
             return room;
         }
@@ -92,17 +93,15 @@ namespace DescendBelow {
         }
 
         private static Point2D GetRandomEnemySpawnPosition() {
-            Random random = new Random();
-            Rectangle zone = ENEMY_SPAWN_ZONES[random.Next(5)];
-            double x = zone.X + zone.Width * random.NextDouble();
-            double y = zone.Y + zone.Height * random.NextDouble();
+            Rectangle zone = ENEMY_SPAWN_ZONES[RandGen.RandomIntBetween(0, 5)];
+            double x = zone.X + zone.Width * RandGen.RandomDoubleBetween(0, 1);
+            double y = zone.Y + zone.Height * RandGen.RandomDoubleBetween(0, 1);
 
             return SplashKit.PointAt(x, y);
         }
 
         private static Point2D GetRandomChestSpawnPosition() {
-            Random random = new Random();
-            return CHEST_SPAWN_LOCATIONS[random.Next(20)];
+            return CHEST_SPAWN_LOCATIONS[RandGen.RandomIntBetween(0, 20)];
         }
 
         public bool Entered {

@@ -1,6 +1,7 @@
 using SplashKitSDK;
 
 namespace DescendBelow {
+    // Represents any object that updates its logic every frame and can be drawn to the screen.
     public abstract class GameObject {
         protected Point2D _position;
         protected double _width, _height;

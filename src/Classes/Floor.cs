@@ -34,7 +34,7 @@ namespace DescendBelow {
 
         private static string[,] GetFloorLayout() {
             Bitmap floorShapesBmp = SplashKit.BitmapNamed("floorShapes");
-            int shapeKind = new Random().Next(0, 10);
+            int shapeKind = RandGen.RandomIntBetween(0, 10);
 
             string[,] layout = new string[5,5];
 

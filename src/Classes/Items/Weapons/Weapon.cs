@@ -1,7 +1,9 @@
 using SplashKitSDK;
 
 namespace DescendBelow {
+    // Represents a weapon that can be used by the player to attack.
     public abstract class Weapon : Item {
+        protected Player? _holder;
         protected int _damage;
         protected double _attackCooldown;
         protected uint _timeSinceLastAtk; 
@@ -12,22 +14,34 @@ namespace DescendBelow {
             _timeSinceLastAtk = SplashKit.TimerTicks("gameTimer");
         }
 
-        public bool ReadyForAttack() {
+        public void Attack(Point2D target) {
+            if (ReadyForAttack()) {
+                PerformAttack(target);
+                IncurCooldown();
+            }
+        }
+
+        protected virtual bool ReadyForAttack() {
             return SplashKit.TimerTicks("gameTimer") - _timeSinceLastAtk >= _attackCooldown * 1000;
         }
 
-        public virtual void Attack(Point2D startPosition, Point2D target) {
+        protected abstract void PerformAttack(Point2D target);
+
+        protected virtual void IncurCooldown() {
             _timeSinceLastAtk = SplashKit.TimerTicks("gameTimer");
         }
 
         public void DrawWeaponStat(double x, double y) {
-            _icon.Draw(0, 0);
-            SplashKit.DrawBitmap("damageIcon", x, y);
-            SplashKit.DrawText(_damage.ToString(), Color.White, "pixel", 24, x + 32, y + 6);
+            _icon.Draw(x, y);
+            SplashKit.DrawText("DMG: " + _damage, Color.White, "pixel", 20, x + _icon.Width + 8, y + _icon.Height / 2 - 10);
         }
 
         public virtual void Upgrade() {
             _damage += 3;
+        }
+
+        public void ChangeHolder(Player? player) {
+            _holder = player;
         }
     }
 }

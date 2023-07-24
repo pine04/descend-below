@@ -2,6 +2,7 @@ using System;
 using SplashKitSDK;
 
 namespace DescendBelow {
+    // Defines the wizard enemy.
     public class Wizard : Enemy {
         private Animation _wizardWalkAnimation;
         private Animation _wizardIdleAnimation;

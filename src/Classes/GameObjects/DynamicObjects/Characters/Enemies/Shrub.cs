@@ -2,6 +2,7 @@ using System;
 using SplashKitSDK;
 
 namespace DescendBelow {
+    // Defines the Shrub enemy.
     public class Shrub : Enemy {
         public Shrub(Point2D position, int floorLevel) : base(position, 48, 48, SplashKit.BitmapNamed("shrub"), SplashKit.VectorTo(0, 0), 140 + 10 * floorLevel, 3 + 2 * floorLevel, RandGen.RandomDoubleBetween(1.5, 2.5), 8 + 2 * floorLevel) { }
 

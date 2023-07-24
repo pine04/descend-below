@@ -1,6 +1,7 @@
 using SplashKitSDK;
 
 namespace DescendBelow {
+    // Represents a character which has health and can take damage.
     public abstract class Character : DynamicObject, ICollidable {
         protected int _health, _maxHealth;
         private Collider _collider;

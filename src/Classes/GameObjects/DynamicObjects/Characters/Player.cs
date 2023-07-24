@@ -2,9 +2,11 @@ using SplashKitSDK;
 using System;
 
 namespace DescendBelow {
+    // Defines the player object.
     public class Player : Character {
         private Weapon _weapon;
         private Spell? _spell;
+        private HealthPotion _potion;
         private uint _timeSinceLastHit, _timeSinceLastRegen;
         private int _experience, _level;
         private Animation _playerIdleAnimation;
@@ -12,6 +14,8 @@ namespace DescendBelow {
 
         public Player(Point2D position, Vector2D initialVelocity, int maxHealth) : base(position, 42, 42, SplashKit.BitmapNamed("player"), initialVelocity, maxHealth, 20) {
             _weapon = new Bow(25, .5);
+            _weapon.ChangeHolder(this);
+            _potion = new HealthPotion(3);
             _timeSinceLastHit = 0;
             _timeSinceLastRegen = 0;
             _experience = 0;
@@ -30,9 +34,7 @@ namespace DescendBelow {
         }
 
         public void Attack(Point2D target) {
-            if (_weapon.ReadyForAttack()) {
-                _weapon.Attack(_position, target);
-            }
+            _weapon.Attack(target);
         }
 
         public void UseSpell() {
@@ -41,11 +43,19 @@ namespace DescendBelow {
             }
         }
 
+        public void DrinkPotion() {
+            _potion.Drink(this);
+        }
+
         public override void Damage(int amount)
         {
             base.Damage(amount);
             _timeSinceLastHit = SplashKit.TimerTicks("gameTimer");
             SplashKit.PlaySoundEffect("hurt");
+        }
+
+        public void DamageWithoutPenalty(int amount) {
+            base.Damage(amount);
         }
 
         private void Regenerate() {
@@ -75,22 +85,29 @@ namespace DescendBelow {
         public void DrawPlayerStats(double x, double y) {
             DrawHealthbar(x, y);
             DrawExperienceBar(x, y + 48);
-            _weapon.DrawWeaponStat(x + 256, y + 4);
-            _spell?.DrawSpell(x + 290, y + 4);
+            _weapon.DrawWeaponStat(x + 312, y);
+            _spell?.DrawSpell(x + 312, y + 48);
+            _potion.DrawHealthPotion(x + 480, y);
         }
 
         private void DrawHealthbar(double x, double y) {
             SplashKit.DrawBitmap("heart", x, y);
-            SplashKit.DrawBitmap("healthbar", x + 48, y);
+
             double percentageHealth = (double)_health / _maxHealth;
-            SplashKit.FillRectangle(Color.RGBColor(196, 36, 48), x + 48 + 240 * percentageHealth, y, Math.Ceiling(240 - percentageHealth * 240), 24);
+            SplashKit.DrawBitmap("healthbar", x + 48, y + 4);
+            SplashKit.FillRectangle(Color.RGBColor(196, 36, 48), x + 48 + 240 * percentageHealth, y + 4, Math.Ceiling(240 - percentageHealth * 240), 24);
+
+            SplashKit.DrawText(_health + "/" + _maxHealth, Color.White, "pixel", 20, x + 56, y + 8);
         }
 
         private void DrawExperienceBar(double x, double y) {
             SplashKit.DrawBitmap("xp", x, y);
-            SplashKit.DrawBitmap("xpbar", x + 48, y);
+
             double percentageXp = (double)_experience / GetExperienceToLevelUp(_level);
-            SplashKit.FillRectangle(Color.RGBColor(12, 46, 68), x + 48 + 240 * percentageXp, y, Math.Ceiling(240 - percentageXp * 240), 24);
+            SplashKit.DrawBitmap("xpbar", x + 48, y + 4);
+            SplashKit.FillRectangle(Color.RGBColor(12, 46, 68), x + 48 + 240 * percentageXp, y + 4, Math.Ceiling(240 - percentageXp * 240), 24);
+
+            SplashKit.DrawText("LVL " + _level, Color.White, "pixel", 20, x + 56, y + 8);
         }
 
         public void AddExperience(int amount) {
@@ -119,6 +136,8 @@ namespace DescendBelow {
         public Item? TakeNewItem(Item newItem) {
             if (newItem is Weapon) {
                 Weapon? newWeapon = newItem as Weapon;
+                newWeapon?.ChangeHolder(this);
+
                 Weapon oldWeapon = _weapon;
                 if (newWeapon != null) {
                     _weapon = newWeapon;
@@ -134,6 +153,13 @@ namespace DescendBelow {
                     _spell = newSpell;
                 }
                 return oldSpell;
+            }
+
+            if (newItem is HealthPotion) {
+                HealthPotion? potion = newItem as HealthPotion;
+                if (potion != null) {
+                    _potion.AddCharges(potion.GetCharges());
+                }
             }
 
             return null;

@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using SplashKitSDK;
-using System.IO;
-
 namespace DescendBelow
 {
     public class Program

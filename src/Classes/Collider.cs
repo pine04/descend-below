@@ -1,6 +1,7 @@
 using SplashKitSDK;
 
 namespace DescendBelow {
+    // Defines the logic of a collider, which is a special object associated with every game object that can collide with other objects.
     public class Collider {
         private GameObject _gameObject;
         private Quad _baseColliderBox;
