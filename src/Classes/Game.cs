@@ -28,8 +28,7 @@ namespace DescendBelow {
         private Game() {
             LoadResources();
 
-            _window = new Window("Descend Below", 1920, 1080);
-            _window.ToggleFullscreen();
+            _window = new Window("Descend Below", 1200, 768);
             _options = SplashKit.OptionDefaults();
             SplashKit.PlayMusic("music", 200);
             SplashKit.SetMusicVolume(0.75f);
