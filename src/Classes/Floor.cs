@@ -1,16 +1,19 @@
 using SplashKitSDK;
-using System;
 
 namespace DescendBelow {
+    // Defines the logic of a Floor, which consists of Rooms that the player can navigate.
     public class Floor {
         private Room[,] _rooms;
         private Room _startRoom;
 
+        // Prevents the use of "new Floor()" outside of the Floor class. Outside users must use the static CreateFloorZero or CreateFloor methods
+        // to create a new floor.
         private Floor() {
             _rooms = new Room[5, 5];
             _startRoom = Room.CreateRoomZero();
         }
 
+        // Creates the initial floor, providing a start for the player.
         public static Floor CreateFloorZero() {
             Floor floor = new Floor();
             floor._rooms[2, 2] = Room.CreateRoomZero();
@@ -19,6 +22,7 @@ namespace DescendBelow {
             return floor;
         }
 
+        // Creates a normal floor.
         public static Floor CreateFloor(int floorLevel) {
             Floor floor = new Floor();
 
@@ -32,6 +36,7 @@ namespace DescendBelow {
             return floor;
         }
 
+        // Reads a random floor layout from a bitmap file, returning it as a 2D string array.
         private static string[,] GetFloorLayout() {
             Bitmap floorShapesBmp = SplashKit.BitmapNamed("floorShapes");
             int shapeKind = RandGen.RandomIntBetween(0, 10);
@@ -57,6 +62,7 @@ namespace DescendBelow {
             return layout;
         }
 
+        // Generates the rooms for a floor given the supplied layout.
         private static void GenerateRooms(Floor floor, int floorLevel, string[,] layout) {
             bool hasNorthExit, hasEastExit, hasSouthExit, hasWestExit;
 
@@ -99,6 +105,7 @@ namespace DescendBelow {
             }
         }
 
+        // Connects the rooms of the given floor.
         private static void ConnectRooms(Floor floor) {
             for (int i = 0; i < floor._rooms.GetLength(0); i++) {
                 for (int j = 0; j < floor._rooms.GetLength(1); j++) {
@@ -125,6 +132,7 @@ namespace DescendBelow {
             }
         }
 
+        // Given the layout of a floor, identify the index of its starting room.
         private static (int, int) GetStartRoomPosition(string[,] layout) {
             for (int i = 0; i < layout.GetLength(0); i++) {
                 for (int j = 0; j < layout.GetLength(1); j++) {

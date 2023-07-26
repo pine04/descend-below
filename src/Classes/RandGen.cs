@@ -1,6 +1,7 @@
 using System;
 
 namespace DescendBelow {
+    // This utility class is used to generate random numbers. It adds some randomness to the game generation.
     public static class RandGen {
         private static Random random = new Random();
 

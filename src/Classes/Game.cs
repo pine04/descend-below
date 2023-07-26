@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 
 namespace DescendBelow {
+    // Defines the Game class, which is responsible for running the game loop and keeping track of everything in the game.
     public class Game {
         private enum GameState {
             Playing,
@@ -22,10 +23,13 @@ namespace DescendBelow {
         private Player _player;
         private Chest? _activeChest;
 
+        // Prevents new Game instances from being created outside the class through "new Game()". The static method CreateGame must be used
+        // to get a Game instance.
         private Game() {
             LoadResources();
 
-            _window = new Window("Descend Below", 1200, 768);
+            _window = new Window("Descend Below", 1920, 1080);
+            _window.ToggleFullscreen();
             _options = SplashKit.OptionDefaults();
             SplashKit.PlayMusic("music", 200);
             SplashKit.SetMusicVolume(0.75f);
@@ -43,6 +47,8 @@ namespace DescendBelow {
             _floorCounter = 0;
         }
 
+
+        // Implements the Singleton pattern. Ensures that only one instance of Game is created.
         public static Game CreateGame() {
             if (CurrentGame == null) {
                 CurrentGame = new Game();
@@ -50,6 +56,7 @@ namespace DescendBelow {
             return CurrentGame;
         }
 
+        // Runs the game loop at 60 fps. A game loop consists of handling inputs, updating logic, handling collisions, and drawing objects to the screen.
         public void Run() {
             do {
                 HandleInputs();
@@ -61,14 +68,17 @@ namespace DescendBelow {
             } while (!_window.CloseRequested);
         }
 
+        // Cleans up the game resources. Should be called when the game loop ends.
         public void CleanUp() {
             SplashKit.FreeResourceBundle("game-resources");
         }
 
+        // Loads the game resources such as images and sound files.
         private void LoadResources() {
             SplashKit.LoadResourceBundle("game-resources", "resources.txt");
         }
 
+        // Handles the user's inputs.
         private void HandleInputs() {
             SplashKit.ProcessEvents();
 
@@ -137,6 +147,7 @@ namespace DescendBelow {
             }
         }
 
+        // Updates the game logic.
         private void Update() {
             if (_state == GameState.Playing) {
 
@@ -163,6 +174,7 @@ namespace DescendBelow {
             }
         }
 
+        // Handles object collisions.
         private void HandleCollisions() {
             if (_state == GameState.Playing) {
 
@@ -183,6 +195,7 @@ namespace DescendBelow {
             }
         }
 
+        // Draws the game screen.
         private void Draw() {
             SplashKit.ClearScreen(Constants.BackgroundColor);
 
@@ -251,10 +264,12 @@ namespace DescendBelow {
             SplashKit.DrawText("ESC to pause/unpause.", Color.White, "pixel", 16, x, y + 176);
         }
 
+        // Adds a new game object onto the screen. Used for spawning new enemies or projectiles.
         public void AddGameObjectOnScreen(GameObject gameObject) {
             _objectsOnScreen.Add(gameObject);
         }
 
+        // Enters a new room.
         public void EnterRoom(Room room, Direction enterDirection) {
             _currentRoom = room;
             _currentRoom.Enter();
@@ -271,6 +286,7 @@ namespace DescendBelow {
             }
         }
 
+        // Loads the content of the current room.
         private void LoadRoom() {
             _objectsOnScreen = new List<GameObject>();
             _objectsOnScreen.Add(_player);
@@ -284,12 +300,14 @@ namespace DescendBelow {
             get { return _player; }
         }
 
+        // Enters a new floor.
         public void EnterNewFloor() {
             _floorCounter++;
             _floor = Floor.CreateFloor(_floorCounter);
             EnterRoom(_floor.StartRoom, Direction.North);
         }
 
+        // Resets the game.
         private void ResetGame() {
             _objectsOnScreen = new List<GameObject>();
             _player = new Player(SplashKit.PointAt(360, 360), new Vector2D() { X = 0, Y = 0 }, 250);
@@ -302,12 +320,14 @@ namespace DescendBelow {
             LoadRoom();
         }
 
+        // Opens a chest, changing the game state to OpenChest.
         public void OpenChest(Chest chest) {
             SplashKit.PauseTimer("gameTimer");
             _state = GameState.OpenChest;
             _activeChest = chest;
         }
 
+        // Closes the current chest.
         private void CloseChest() {
             SplashKit.ResumeTimer("gameTimer");
             _state = GameState.Playing;
@@ -331,6 +351,7 @@ namespace DescendBelow {
             }
         }
 
+        // Lets the player pick up an item from the chest when the user clicks on a "Take" button on the screen.
         private void HandleChestInteraction() {
             int index = GetItemIndexFromMousePosition(SplashKit.MousePosition());
             Item? chestItem = _activeChest?.GetItem(index);
@@ -344,6 +365,7 @@ namespace DescendBelow {
             }
         }
 
+        // Returns a list of all enemies on the screen.
         public List<Enemy> GetAllEnemies() {
             List<Enemy> enemies = new List<Enemy>();
 

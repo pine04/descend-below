@@ -1,8 +1,8 @@
-using System.Collections.Generic;
 using SplashKitSDK;
-using System;
+using System.Collections.Generic;
 
 namespace DescendBelow {
+    // Defines a Room, which can be thought of as a level containing enemies and other objects the player can interact with. 
     public class Room {
         private static Rectangle[] ENEMY_SPAWN_ZONES = new Rectangle[] {
             SplashKit.RectangleFrom(SplashKit.PointAt(216, 216), 96, 96),
@@ -22,11 +22,14 @@ namespace DescendBelow {
         private List<GameObject> _gameObjects;
         private bool _entered;
 
+        // Prohibits the use of "new Room()" outside the class. To create a new room, the static methods CreateRoomZero, CreateRoom, or CreateEndRoom
+        // must be used instead.
         private Room() { 
             _gameObjects = new List<GameObject>();
             _entered = false;
         }
 
+        // Creates the starting room for the player.
         public static Room CreateRoomZero() {
             Room room = new Room();
 
@@ -39,6 +42,7 @@ namespace DescendBelow {
             return room;
         }
 
+        // Creates a normal room.
         public static Room CreateRoom(int floorLevel, bool hasNorthExit, bool hasEastExit, bool hasSouthExit, bool hasWestExit) {
             Room room = new Room();
 
@@ -86,6 +90,7 @@ namespace DescendBelow {
             return room;
         }
 
+        // Creates a room with an staircase to descend into a new floor.
         public static Room CreateEndRoom(int floorLevel, bool hasNorthExit, bool hasEastExit, bool hasSouthExit, bool hasWestExit) {
             Room room = CreateRoom(floorLevel, hasNorthExit, hasEastExit, hasSouthExit, hasWestExit);
             room._gameObjects.Add(new Staircase(SplashKit.PointAt(360, 360)));
@@ -108,6 +113,7 @@ namespace DescendBelow {
             get { return _entered; }
         }
 
+        // Determines if the room is cleared of all enemies.
         public bool IsClear() {
             foreach (GameObject gameObject in _gameObjects) {
                 if (gameObject is Enemy) {

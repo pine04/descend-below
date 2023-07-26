@@ -16,7 +16,7 @@ namespace DescendBelow {
         private static List<Item> GenerateChestContent(int floorLevel) {
             List<Item> items = new List<Item>();
 
-            items.Add(new HealthPotion(RandGen.RandomIntBetween(2, 6)));
+            items.Add(new HealthPotion(RandGen.RandomIntBetween(1, 3)));
 
             if (RandGen.RandomDoubleBetween(0, 1) <= 0.8) {
                 if (RandGen.RandomDoubleBetween(0, 1) >= 0.5) {
